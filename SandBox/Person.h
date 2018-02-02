@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Person : NSObject
+//遵守归档协议<NSCoding>
+@interface Person : NSObject<NSCoding>
 
-@property (nonatomic,strong) NSString *name;
+@property(nonatomic,copy)NSString *name;
+@property(nonatomic,assign)NSInteger age;
 
 @end

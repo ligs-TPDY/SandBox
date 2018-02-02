@@ -83,6 +83,32 @@
     File *ff = [[File alloc]init];
     NSLog(@"%@",ff);
     
+    //--归解档--//
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+    NSString *path = [paths objectAtIndex:0];
+    NSString *pathData = [path stringByAppendingPathComponent:@"/data.txt"];
+    
+    Person *xiaoM = [[Person alloc] init];
+    xiaoM.name = @"xiaoMing";
+    xiaoM.age  = 18;
+
+    //参数1: 归档内容  参数2: 归档的路径
+    //archiveRootObject：归档到文件－>encodeWithCoder
+    if([NSKeyedArchiver archiveRootObject:xiaoM toFile:pathData])
+    {
+        NSLog(@"归档成功");
+    }
+    
+    Person *obj = [NSKeyedUnarchiver unarchiveObjectWithFile:pathData];
+    NSLog(@"解档后：%@",obj);
+    
+    //归档到数据流
+    //归档到数据流->encodeWithCoder
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:xiaoM];
+    Person *obj2 = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSLog(@"数据流解档后:%@",obj2);
+    
+    
 }
 
 @end
